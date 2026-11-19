@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <title>Data Mahasiswa</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Data Mahasiswa</h1>
+
+  <form id="form">
+    <input type="hidden" id="id" />
+    <input id="nim" placeholder="NIM" required />
+    <input id="nama" placeholder="Nama" required />
+    <input id="jurusan" placeholder="Jurusan" required />
+    <input id="angkatan" type="number" placeholder="Angkatan" required />
+    <input id="email" type="email" placeholder="Email (opsional)" />
+    <button type="submit">Simpan</button>
+    <button type="button" id="batal">Batal</button>
+  </form>
+
+  <table>
+    <thead>
+      <tr><th>NIM</th><th>Nama</th><th>Jurusan</th><th>Angkatan</th><th>Email</th><th>Aksi</th></tr>
+    </thead>
+    <tbody id="tbody"></tbody>
+  </table>
+
+  <script>
+    const API = '/api/mahasiswa';
+    const $ = (id) => document.getElementById(id);
+
+    async function muatData() {
+      const res = await fetch(API);
+      const rows = await res.json();
+      $('tbody').innerHTML = rows.map(r => `
+        <tr>
+          <td>${r.nim}</td><td>${r.nama}</td><td>${r.jurusan}</td>
+          <td>${r.angkatan}</td><td>${r.email ?? ''}</td>
+          <td>
+            <button onclick="ubah(${r.id})">Ubah</button>
+            <button onclick="hapus(${r.id})">Hapus</button>
+          </td>
+        </tr>`).join('');
+    }
+
+    $('form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const id = $('id').value;
+      const body = {
+        nim: $('nim').value, nama: $('nama').value, jurusan: $('jurusan').value,
+        angkatan: $('angkatan').value, email: $('email').value,
+      };
+      const res = await fetch(id ? `${API}/${id}` : API, {
+        method: id ? 'PUT' : 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+      });
+      if (!res.ok) return alert((await res.json()).error);
+      resetForm();
+      muatData();
+    });
+
+    async function ubah(id) {
+      const r = await (await fetch(`${API}/${id}`)).json();
+      $('id').value = r.id;
+      $('nim').value = r.nim;
+      $('nama').value = r.nama;
+      $('jurusan').value = r.jurusan;
+      $('angkatan').value = r.angkatan;
+      $('email').value = r.email ?? '';
+    }
+
+    async function hapus(id) {
+      if (!confirm('Yakin hapus data ini?')) return;
+      await fetch(`${API}/${id}`, { method: 'DELETE' });
+      muatData();
+    }
+
+    function resetForm() { $('form').reset(); $('id').value = ''; }
+    $('batal').onclick = resetForm;
+
+    muatData();
+  </script>
+</body>
+</html>

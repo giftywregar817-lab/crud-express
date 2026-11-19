@@ -1,0 +1,190 @@
+:root {
+  --bg: #eef2ff;              /* Latar belakang biru-indigo sangat lembut */
+  --surface: #ffffff;
+  --border: #e0e7ff;
+  --text-main: #1e1b4b;       /* Teks utama biru gelap (lebih hangat dari hitam) */
+  --text-muted: #6366f1;      /* Label dengan sentuhan indigo */
+  --text-sub: #64748b;
+  --primary: #4f46e5;         /* Indigo cerah */
+  --primary-hover: #4338ca;
+  --accent-edit: #0284c7;     /* Biru langit untuk tombol Edit */
+  --accent-edit-bg: #e0f2fe;
+  --danger: #e11d48;          /* Merah rose modern untuk Hapus */
+  --danger-bg: #ffe4e6;
+  --radius: 12px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: linear-gradient(135deg, #eef2ff 0%, #f0f9ff 100%);
+  color: var(--text-main);
+  line-height: 1.5;
+  min-height: 100vh;
+  padding: 2.5rem 1rem;
+}
+
+.container {
+  max-width: 920px;
+  margin: 0 auto;
+}
+
+h1 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.02em;
+  background: linear-gradient(90deg, #4f46e5, #0ea5e9);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Kartu Form & Tabel */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-top: 4px solid var(--primary);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 10px 25px -5px rgba(79, 70, 229, 0.08);
+}
+
+/* Grid Form */
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+input {
+  padding: 0.65rem 0.85rem;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  color: var(--text-main);
+  background-color: #f8fafc;
+  transition: all 0.2s;
+}
+
+input:focus {
+  outline: none;
+  background-color: #ffffff;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+}
+
+/* Tombol */
+.btn-group {
+  display: flex;
+  gap: 0.5rem;
+}
+
+button {
+  cursor: pointer;
+  padding: 0.65rem 1.25rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border: none;
+  transition: all 0.2s;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #4f46e5, #0ea5e9);
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.25);
+}
+
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(79, 70, 229, 0.35);
+}
+
+.btn-secondary {
+  background-color: var(--accent-edit-bg);
+  color: var(--accent-edit);
+}
+
+.btn-secondary:hover {
+  background-color: #bae6fd;
+}
+
+.btn-sm {
+  padding: 0.4rem 0.75rem;
+  font-size: 0.8rem;
+}
+
+.btn-danger {
+  background-color: var(--danger-bg);
+  color: var(--danger);
+}
+
+.btn-danger:hover {
+  background-color: #fecdd3;
+}
+
+/* Tabel */
+.table-wrapper {
+  overflow-x: auto;
+  border-top-color: #0ea5e9; /* Aksen biru langit untuk kartu tabel */
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.92rem;
+}
+
+thead {
+  background-color: #f5f3ff;
+}
+
+th {
+  font-weight: 700;
+  color: var(--primary);
+  border-bottom: 2px solid var(--border);
+  padding: 0.85rem 0.75rem;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+td {
+  padding: 0.9rem 0.75rem;
+  border-bottom: 1px solid #f1f5f9;
+  color: #334155;
+}
+
+tbody tr:last-child td {
+  border-bottom: none;
+}
+
+tbody tr:hover {
+  background-color: #f8faff;
+}
+
+.empty-state {
+  text-align: center;
+  color: var(--text-sub);
+  padding: 2.5rem;
+}
